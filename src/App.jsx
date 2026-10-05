@@ -1,120 +1,178 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
   const [copiado, setCopiado] = useState(false);
-  const email = "catherine.alvarez.abogada@gmail.com";
+  const [errorCopia, setErrorCopia] = useState(false);
+  const email = 'catherine.alvarez.abogada@gmail.com';
 
-  const copiarEmail = () => {
-    navigator.clipboard.writeText(email);
-    setCopiado(true);
-    setTimeout(() => setCopiado(false), 3000); // Vuelve al estado original a los 3 segundos
+  const copiarEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopiado(true);
+      setErrorCopia(false);
+      window.setTimeout(() => setCopiado(false), 3000);
+    } catch {
+      setErrorCopia(true);
+    }
   };
 
   const serviciosFamilia = [
-    "Cuidado Personal y Relación Directa y Regular",
-    "Pensiones de Alimentos (Aumento, Rebaja, Cese)",
-    "Divorcios (De Mutuo Acuerdo, Unilateral, Culposo)",
-    "Medidas de Protección y Violencia Intrafamiliar (VIF)"
+    'Cuidado personal y relación directa y regular',
+    'Pensiones de alimentos: aumento, rebaja y cese',
+    'Divorcios: mutuo acuerdo, unilateral y culposo',
+    'Medidas de protección y violencia intrafamiliar (VIF)',
   ];
 
   const serviciosCivil = [
-    "Estudio de Títulos y Compraventa de Inmuebles",
-    "Juicios de Arrendamiento y Precaristas",
-    "Indemnización de Perjuicios y Juicios Ejecutivos",
-    "Redacción y Revisión de Contratos"
+    'Estudio de títulos y compraventa de inmuebles',
+    'Juicios de arrendamiento y precario',
+    'Indemnización de perjuicios y juicios ejecutivos',
+    'Redacción y revisión de contratos',
   ];
 
   return (
     <div className="landing-container">
-      {/* Header */}
       <header className="navbar">
-        <div className="logo">Catherine Álvarez Gálvez | Abogada</div>
-        <nav>
+        <a className="brand" href="#inicio" aria-label="Catherine Álvarez Gálvez, inicio">
+          <span className="brand-mark" aria-hidden="true">CA</span>
+          <span className="brand-copy">
+            <strong>Catherine Álvarez Gálvez</strong>
+            <span>Abogada</span>
+          </span>
+        </a>
+        <nav aria-label="Navegación principal">
           <a href="#sobre-mi">Trayectoria</a>
           <a href="#servicios">Servicios</a>
           <a href="#contacto" className="btn-nav">Contacto</a>
         </nav>
       </header>
 
-      {/* Hero Section */}
-      <section className="hero">
-        <h1>Asesoría y Representación Jurídica Especializada</h1>
-        <p>Experiencia, compromiso y rigor legal en materias de Derecho de Familia y Derecho Civil.</p>
-        <a 
-          href="https://wa.me/56912345678" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="btn-primary"
-        >
-          Agendar Consulta por WhatsApp
-        </a>
-      </section>
-
-      {/* Sobre Mí */}
-      <section id="sobre-mi" className="about-section">
-        <h2>Trayectoria Profesional</h2>
-        <div className="about-content">
-          <p>
-            Soy <strong>Catherine Álvarez Gálvez</strong>, Abogada titulada de la Universidad Católica de la Santísima Concepción, habiendo prestado juramento ante la Excelentísima Corte Suprema en el año 2014.
-          </p>
-          <p>
-            Cuento con una amplia trayectoria en el ejercicio de la profesión, habiéndome desempeñado como <strong>Abogada Jefe en el Servicio Nacional de la Mujer y la Equidad de Género (SernamEG)</strong> y como funcionaria en el <strong>Poder Judicial</strong>, sumado a años de ejercicio independiente de la profesión.
-          </p>
-        </div>
-      </section>
-
-      {/* Servicios */}
-      <section id="servicios" className="services-section">
-        <h2>Áreas de Práctica</h2>
-        <div className="services-grid">
-          {/* Tarjeta Derecho de Familia */}
-          <div className="service-card">
-            <h3>Derecho de Familia</h3>
-            <p className="service-subtitle">Representación integral y defensa efectiva en tribunales de familia.</p>
-            <ul>
-              {serviciosFamilia.map((item, index) => (
-                <li key={index}>{item}</li>
-              ))}
-            </ul>
+      <main>
+        <section id="inicio" className="hero">
+          <div className="hero-inner">
+            <div className="hero-copy">
+              <p className="eyebrow">Derecho de familia y civil</p>
+              <h1>Asesoría legal para decisiones que importan.</h1>
+              <p className="hero-subtitle">
+                Orientación jurídica con rigor, ética y una mirada cercana a cada caso.
+              </p>
+              <div className="hero-actions">
+                <a href="#contacto" className="btn-primary">
+                  Solicitar orientación <span aria-hidden="true">↗</span>
+                </a>
+                <a href="#sobre-mi" className="text-link">Conocer trayectoria</a>
+              </div>
+            </div>
+            <div className="hero-mark" aria-hidden="true">
+              <span className="hero-mark-name">Catherine Álvarez Gálvez</span>
+              <span className="hero-mark-initials">CA</span>
+              <span className="hero-mark-rule" />
+              <span className="hero-mark-role">Abogada</span>
+              <span className="hero-mark-year">Juramento · 2014</span>
+            </div>
           </div>
+        </section>
 
-          {/* Tarjeta Derecho Civil */}
-          <div className="service-card">
-            <h3>Derecho Civil</h3>
-            <p className="service-subtitle">Asesoría en contratos, bienes y protección de tus patromonios e intereses.</p>
-            <ul>
-              {serviciosCivil.map((item, index) => (
-                <li key={index}>{item}</li>
-              ))}
-            </ul>
+        <section className="credentials" aria-label="Formación y experiencia">
+          <dl className="credentials-inner">
+            <div>
+              <dt>Formación</dt>
+              <dd>Universidad Católica de la Santísima Concepción</dd>
+            </div>
+            <div>
+              <dt>Juramento</dt>
+              <dd>Corte Suprema · 2014</dd>
+            </div>
+            <div>
+              <dt>Experiencia</dt>
+              <dd>SernamEG y Poder Judicial</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section id="sobre-mi" className="about-section">
+          <div className="about-layout">
+            <div className="section-intro">
+              <p className="eyebrow">Trayectoria</p>
+              <h2>Experiencia jurídica, mirada cercana.</h2>
+            </div>
+            <div className="about-content">
+              <p>
+                Catherine Álvarez Gálvez es abogada de la Universidad Católica de la
+                Santísima Concepción. Su trayectoria incluye el cargo de Abogada Jefe
+                en el Servicio Nacional de la Mujer y la Equidad de Género (SernamEG),
+                funciones en el Poder Judicial y el ejercicio independiente de la profesión.
+              </p>
+              <a href="#contacto" className="text-link text-link-dark">
+                Conversar sobre mi caso <span aria-hidden="true">↗</span>
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Contacto */}
-      <section id="contacto" className="contact-section">
-        <h2>¿Necesitas Orientación Legal?</h2>
-        <p>Escríbeme para evaluar tu caso de forma confidencial y personalizada.</p>
-        
-        {/* Bloque para copiar el correo */}
-        <div className="email-copy-box">
-          <span className="email-text">{email}</span>
-          <button onClick={copiarEmail} className="btn-copy">
-            {copiado ? "✓ ¡Copiado!" : "Copiar Correo"}
-          </button>
-        </div>
+        <section id="servicios" className="services-section">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Áreas de práctica</p>
+              <h2>Asesoría para cada etapa.</h2>
+            </div>
+            <p className="section-note">
+              Derecho de familia y civil, con atención personalizada.
+            </p>
+          </div>
+          <div className="services-grid">
+            <article className="service-card">
+              <div className="service-heading">
+                <span className="service-index">01</span>
+                <h3>Derecho de Familia</h3>
+              </div>
+              <p className="service-subtitle">Orientación y representación ante Tribunales de Familia.</p>
+              <ul>
+                {serviciosFamilia.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            </article>
+            <article className="service-card">
+              <div className="service-heading">
+                <span className="service-index">02</span>
+                <h3>Derecho Civil</h3>
+              </div>
+              <p className="service-subtitle">Asesoría contractual y representación en asuntos civiles.</p>
+              <ul>
+                {serviciosCivil.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            </article>
+          </div>
+        </section>
 
-        <div className="contact-buttons">
-          <a href={`mailto:${email}`} className="btn-secondary">
-            Enviar Email Directo
-          </a>
-        </div>
-      </section>
+        <section id="contacto" className="contact-section">
+          <div className="contact-layout">
+            <div>
+              <p className="eyebrow">Contacto</p>
+              <h2>Hablemos de tu situación.</h2>
+              <p className="contact-lead">
+                Escríbeme para evaluar tu caso de forma confidencial y personalizada.
+              </p>
+            </div>
+            <div className="contact-actions">
+              <a className="contact-email" href={`mailto:${email}`}>{email}</a>
+              <div className="contact-buttons">
+                <a href={`mailto:${email}`} className="btn-secondary">Enviar correo <span aria-hidden="true">↗</span></a>
+                <button type="button" onClick={copiarEmail} className="btn-copy">
+                  {copiado ? 'Correo copiado' : 'Copiar correo'}
+                </button>
+              </div>
+              <p className="copy-status" aria-live="polite">
+                {errorCopia ? 'No se pudo copiar. Usa el enlace de correo.' : ''}
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
 
-      {/* Footer */}
       <footer>
-        <p>&copy; {new Date().getFullYear()} Catherine Álvarez Gálvez - Abogada. Todos los derechos reservados.</p>
+        <p>&copy; {new Date().getFullYear()} Catherine Álvarez Gálvez · Abogada</p>
+        <a href="#inicio">Volver arriba ↑</a>
       </footer>
     </div>
   );
