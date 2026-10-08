@@ -155,15 +155,31 @@ function App() {
               </p>
             </div>
             <div className="contact-actions">
-              <a className="contact-email" href={`mailto:${email}`}>{email}</a>
-              <div className="contact-buttons">
-                <a href={`mailto:${email}`} className="btn-secondary">Enviar correo <span aria-hidden="true">↗</span></a>
-                <button type="button" onClick={copiarEmail} className="btn-copy">
-                  {copiado ? 'Correo copiado' : 'Copiar correo'}
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={copiarEmail}
+                className={`contact-email${copiado ? ' is-copied' : ''}`}
+                aria-label={copiado ? 'Correo electrónico copiado' : `Copiar correo electrónico ${email}`}
+              >
+                <span>{email}</span>
+                <span className="contact-email-action" aria-hidden="true">
+                  <svg className="contact-email-icon" viewBox="0 0 20 20" fill="none">
+                    {copiado ? (
+                      <path d="m4.5 10.5 3.5 3.5 7.5-8" />
+                    ) : (
+                      <>
+                        <rect x="7" y="6" width="9" height="11" rx="1.5" />
+                        <path d="M13 6V4.5A1.5 1.5 0 0 0 11.5 3h-7A1.5 1.5 0 0 0 3 4.5v9A1.5 1.5 0 0 0 4.5 15H7" />
+                      </>
+                    )}
+                  </svg>
+                  <span className="contact-email-hint">
+                    {copiado ? 'Copiado' : 'Haz clic para copiar'}
+                  </span>
+                </span>
+              </button>
               <p className="copy-status" aria-live="polite">
-                {errorCopia ? 'No se pudo copiar. Usa el enlace de correo.' : ''}
+                {errorCopia ? 'No se pudo copiar el correo. Inténtalo de nuevo desde un navegador compatible.' : copiado ? 'Correo copiado al portapapeles.' : ''}
               </p>
             </div>
           </div>

@@ -441,7 +441,9 @@ footer a:hover {
 }
 
 .contact-section {
-  background: var(--forest-deep);
+  background:
+    radial-gradient(ellipse at 85% 15%, rgba(194, 155, 88, 0.12), transparent 38%),
+    linear-gradient(115deg, var(--forest-deep), #173b2d 62%, #1d4433);
   color: var(--white);
 }
 
@@ -468,43 +470,83 @@ footer a:hover {
 }
 
 .contact-email {
+  width: 100%;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid rgba(226, 198, 143, 0.42);
+  border-radius: 3px;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025));
+  box-shadow: 0 12px 32px rgba(6, 20, 14, 0.16);
   color: var(--gold-light);
+  cursor: pointer;
   font-size: 16px;
   font-weight: 600;
+  text-align: left;
+  overflow-wrap: anywhere;
+  transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+.contact-email:hover,
+.contact-email:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--gold-light);
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.05));
+  box-shadow: 0 16px 38px rgba(6, 20, 14, 0.28), 0 0 22px rgba(226, 198, 143, 0.1);
+}
+
+.contact-email > span:first-child {
+  min-width: 0;
   overflow-wrap: anywhere;
 }
 
-.contact-buttons {
-  margin-top: 22px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.btn-secondary {
-  min-height: 46px;
-}
-
-.btn-copy {
-  min-height: 46px;
-  padding: 12px 18px;
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  background: transparent;
+.contact-email-action {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   color: var(--white);
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
-  transition: background-color 180ms ease, border-color 180ms ease;
 }
 
-.btn-copy:hover {
-  border-color: var(--white);
-  background: rgba(255, 255, 255, 0.08);
+.contact-email-icon {
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+  transition: transform 220ms ease, color 220ms ease;
+}
+
+.contact-email-hint {
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0.65;
+  transition: color 180ms ease, opacity 180ms ease;
+}
+
+.contact-email:hover .contact-email-hint,
+.contact-email:focus-visible .contact-email-hint,
+.contact-email.is-copied .contact-email-hint {
+  color: var(--gold-light);
+  opacity: 1;
+}
+
+.contact-email:hover .contact-email-icon,
+.contact-email:focus-visible .contact-email-icon {
+  transform: scale(1.08);
+}
+
+.contact-email.is-copied .contact-email-icon {
+  color: var(--gold-light);
 }
 
 .copy-status {
   min-height: 22px;
-  margin: 8px 0 0;
+  margin: 10px 0 0;
   color: var(--gold-light);
   font-size: 12px;
 }
@@ -691,7 +733,19 @@ footer a {
   }
 
   .contact-email {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+    padding: 13px;
     font-size: 14px;
+  }
+
+  .contact-email-action {
+    flex-direction: row-reverse;
+  }
+
+  .contact-email-hint {
+    font-size: 10px;
   }
 
   footer {
